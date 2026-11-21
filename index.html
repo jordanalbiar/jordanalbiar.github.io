@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="dark" />
+<meta name="description" content="Albiar Portal at jordanalbiar.github.io: Jordan's GitHub repos as channels, in the Albiar page style. Nova Bot is live now and opens in a popup at 95 percent of the screen. The other repos link to GitHub until their sites are built." />
+<link rel="icon" href="assets/albiar-logo.png" />
+<title>Albiar Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --desk:#05070d;
+    --win-bg:#0c1322;
+    --win-head:#080d18;
+    --panel:#060a13;
+    --panel-2:#101a2e;
+    --ink:#eef2f8; --muted:#9fb0c8; --dim:#7f90ab;
+    --ice:#3fb9e3; --blue:#1b8ab5; --blue-deep:#0f6d94;
+    --logo-blue:#1496ba; --logo-dark:#0f6d94; --logo-darkest:#0a4e68;
+    --chan-text:#aebdd2;
+    --line:rgba(255,255,255,.08);
+    --wire:#3db3e8; --wire-bright:#8fd8f7; --wire-dim:rgba(61,179,232,.55);
+    --grid-line:rgba(56,150,205,.13); --grid-major:rgba(56,150,205,.26);
+    --panel-wire:rgba(18,58,92,.42);
+    --stencil:"Black Ops One","Noto Sans",system-ui,sans-serif;
+    --live:#3dd598; --live-bg:rgba(61,213,152,.14);
+    --amber:#f2c94c; --amber-bg:rgba(242,201,76,.13);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;background:var(--desk);color:var(--ink);
+    font-family:"Noto Sans","Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    line-height:1.5;overflow:hidden;-webkit-font-smoothing:antialiased;
+  }
+  button{font:inherit;color:inherit}
+  a{color:inherit}
+  [hidden]{display:none !important}
+
+  /* ---------- Desktop backdrop: blueprint grid, same as the Albiar page ---------- */
+  .desktop{position:fixed;inset:0;background:
+    radial-gradient(760px 480px at 50% 34%,rgba(27,138,181,.14),transparent 70%),
+    linear-gradient(var(--grid-major) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid-major) 1px,transparent 1px),
+    linear-gradient(var(--grid-line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);
+    background-size:auto,130px 130px,130px 130px,26px 26px,26px 26px}
+  .desk-hint{position:absolute;left:18px;bottom:18px;font-size:12px;color:var(--dim);max-width:46ch;line-height:1.5;z-index:1}
+  .reopen{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:none;background:var(--blue-deep);border:1px solid rgba(63,185,227,.55);color:#fff;border-radius:12px;padding:13px 20px;font-weight:700;cursor:pointer;box-shadow:0 16px 40px rgba(0,0,0,.5);z-index:5}
+  .reopen.show{display:block}
+
+  /* ---------- The window ---------- */
+  .win{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;
+    width:min(1180px,96vw);height:min(860px,94vh);
+    display:flex;flex-direction:column;background:var(--win-bg);
+    border:1.5px solid var(--wire-dim);border-radius:var(--radius);
+    box-shadow:0 34px 80px rgba(0,0,0,.7),0 0 0 1px rgba(0,0,0,.4),0 0 34px rgba(61,179,232,.12);
+    min-width:340px;min-height:340px;
+  }
+  .win.full{left:0;top:0;transform:none;width:100vw;height:100vh;height:100dvh;border-radius:0;border:0}
+  .win.gone{display:none}
+  /* Blueprint corner brackets riding the window frame, like the Albiar page */
+  .wf-corners{position:absolute;inset:7px;z-index:55;pointer-events:none}
+  .wf-corners i{position:absolute;width:22px;height:22px;border:0 solid var(--wire)}
+  .wf-corners .tl{top:0;left:0;border-top-width:2.5px;border-left-width:2.5px}
+  .wf-corners .tr{top:0;right:0;border-top-width:2.5px;border-right-width:2.5px}
+  .wf-corners .bl{bottom:0;left:0;border-bottom-width:2.5px;border-left-width:2.5px}
+  .wf-corners .br{bottom:0;right:0;border-bottom-width:2.5px;border-right-width:2.5px}
+  .win.full .wf-corners{display:none}
+
+  /* ---------- Title bar ---------- */
+  .titlebar{
+    flex:none;display:flex;align-items:center;flex-wrap:wrap;gap:8px 10px;
+    background:
+      linear-gradient(var(--grid-line) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid-line) 1px,transparent 1px),var(--win-head);
+    background-size:26px 26px,26px 26px,auto;
+    padding:9px 10px 9px 14px;border-bottom:1.5px solid var(--wire-dim);
+    border-radius:14px 14px 0 0;user-select:none;-webkit-user-select:none;
+  }
+  .win.full .titlebar{border-radius:0}
+  .title-brand{display:flex;align-items:center;gap:10px;flex:1 1 auto;min-width:0}
+  .title-brand img{width:34px;height:34px;border-radius:6px;display:block;flex:none;object-fit:cover;border:1.5px solid var(--wire);box-shadow:0 4px 12px rgba(0,0,0,.45)}
+  .tb-text{display:flex;flex-direction:column;line-height:1.1;min-width:0}
+  .tb-name{font-family:var(--stencil);font-size:18px;font-weight:400;letter-spacing:.05em;text-transform:uppercase;color:#45aae6;white-space:nowrap}
+  .tb-tag{font-size:11.5px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .home-chip{
+    flex:none;display:inline-flex;align-items:center;gap:7px;text-decoration:none;
+    font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;
+    color:var(--wire-bright);background:var(--panel-wire);
+    border:1.5px solid var(--wire-dim);border-radius:3px;padding:6px 10px;min-height:32px;
+  }
+  .home-chip:hover{border-color:var(--wire);color:#fff}
+  .home-chip .dot{width:7px;height:7px;border-radius:50%;background:var(--live);flex:none}
+  .searchrow{flex:1 1 auto;min-width:0;display:none}
+  .searchrow.on{display:block}
+  .searchrow.on ~ .title-brand,.searchrow.on ~ .home-chip{display:none}
+  .searchrow input{width:100%;height:32px;background:var(--panel-wire);border:1.5px solid var(--wire-dim);border-radius:3px;color:#fff;font:inherit;font-size:13.5px;padding:6px 11px;outline:none}
+  .searchrow input:focus{border-color:var(--ice)}
+  .win-controls{margin-left:auto;display:flex;gap:5px}
+  .wc{width:26px;height:22px;border:1.5px solid transparent;border-radius:6px;background:transparent;color:var(--muted);display:grid;place-items:center;cursor:pointer}
+  .wc:focus-visible{outline:2px solid #fff;outline-offset:2px}
+  #wcMin{background:#0f6d94;border-color:#3fb9e3;color:#fff}
+  #wcMin:hover{background:#1b8ab5}
+  #wcMax{background:#e6b91f;border-color:#ffe27a;color:#211a00}
+  #wcMax:hover{background:#f5cc3a}
+  #wcClose{background:#c62f3b;border-color:#ff7a86;color:#fff}
+  #wcClose:hover{background:#a82330}
+  .wc svg{width:11px;height:11px}
+  .wc.search-btn{background:rgba(18,58,92,.42);border-color:var(--wire-dim);color:var(--wire-bright)}
+  .wc.search-btn:hover{border-color:var(--wire);color:#fff}
+  .wc.search-btn.on{background:rgba(15,109,148,.65);border-color:var(--wire);color:#fff}
+
+  /* ---------- Window body: channels sidebar + main panel ---------- */
+  .win-body{flex:1;display:flex;min-height:0;border-radius:0 0 14px 14px;overflow:hidden}
+  .win.full .win-body{border-radius:0}
+
+  /* Channels sidebar, same style as the Albiar page */
+  .sidebar{
+    flex:none;width:232px;
+    background:
+      linear-gradient(var(--grid-line) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid-line) 1px,transparent 1px),var(--panel);
+    background-size:26px 26px,26px 26px,auto;
+    border-right:1.5px solid var(--wire-dim);overflow-y:auto;padding:0 8px 14px;
+  }
+  .sidebar-top{position:sticky;top:0;z-index:6;padding:10px 0 8px;background:var(--panel);border-bottom:1px solid var(--line)}
+  .sidebar-toggle{width:100%;display:flex;align-items:center;gap:8px;background:var(--panel-wire);border:1.5px solid var(--wire-dim);color:#fff;border-radius:3px;padding:8px 10px;font-size:13px;font-weight:700;cursor:pointer;min-height:38px;text-align:left}
+  .sidebar-toggle:hover{border-color:var(--wire);background:rgba(15,109,148,.55)}
+  .sidebar-toggle:focus-visible{outline:2px solid var(--ice);outline-offset:2px}
+  .sidebar-toggle-label{flex:1;min-width:0;white-space:nowrap;overflow:hidden}
+  .sidebar-toggle .st-ico{flex:none;display:grid;place-items:center;color:var(--wire-bright)}
+  .sidebar-toggle .st-ico svg{width:17px;height:17px}
+  .sidebar-toggle .st-expand{display:none}
+  .sidebar.mini{width:58px;padding:0 6px 14px;overflow-x:hidden}
+  .sidebar.mini .sidebar-toggle{justify-content:center;padding:8px 0}
+  .sidebar.mini .sidebar-toggle-label{display:none}
+  .sidebar.mini .sidebar-toggle .st-collapse{display:none}
+  .sidebar.mini .sidebar-toggle .st-expand{display:grid}
+  .cat{display:flex;align-items:center;gap:7px;font-size:10.5px;letter-spacing:.09em;font-weight:800;color:var(--wire);margin:14px 8px 4px;text-transform:uppercase}
+  .cat::before{content:"";width:8px;height:8px;flex:none;border-radius:50%;border:1.5px solid var(--wire);background:radial-gradient(circle,#fff 0 1.6px,transparent 2.2px)}
+  .cat:first-child{margin-top:2px}
+  .cat .cat-count{margin-left:auto;font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--dim);letter-spacing:0}
+  .sidebar.mini .cat{justify-content:center;font-size:0;letter-spacing:0;margin:12px 0 3px;gap:0}
+  .sidebar.mini .cat .cat-count{display:none}
+  .chan{width:100%;display:flex;align-items:center;gap:8px;text-align:left;background:transparent;border:1px solid transparent;color:var(--chan-text);padding:8px 9px;border-radius:3px;cursor:pointer;font-size:13.8px;min-height:38px}
+  .chan:hover{background:var(--panel-wire);border-color:var(--wire-dim);color:#fff}
+  .chan.active{background:var(--panel-wire);border-color:var(--wire);color:#fff;font-weight:700;box-shadow:inset 0 0 0 1px rgba(61,179,232,.25)}
+  .chan .cemoji{flex:none;font-size:19px;line-height:1.2;text-align:center}
+  .chan .cname{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .chan .cdot{margin-left:auto;width:8px;height:8px;border-radius:50%;flex:none}
+  .chan .cdot.live{background:var(--live);box-shadow:0 0 8px rgba(61,213,152,.8)}
+  .chan .cdot.soon{background:var(--amber)}
+  .sidebar.mini .chan{justify-content:center;padding:8px 0;gap:0;min-height:40px}
+  .sidebar.mini .chan .cname,.sidebar.mini .chan .cdot{display:none}
+  .chan.is-hidden{display:none}
+  .cat.is-hidden{display:none}
+  .side-foot{margin:16px 8px 0;padding:12px;border:1px dashed var(--wire-dim);border-radius:3px;font-size:12px;color:var(--dim);line-height:1.5}
+  .side-foot strong{color:var(--muted)}
+  .sidebar.mini .side-foot{display:none}
+  .side-empty{display:none;margin:12px 8px;font-size:13px;color:var(--muted)}
+  .side-empty.show{display:block}
+
+  /* ---------- Main panel: the selected channel ---------- */
+  .main{flex:1;min-width:0;overflow-y:auto;padding:22px 26px 26px;
+    background:
+      linear-gradient(var(--grid-line) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid-line) 1px,transparent 1px),var(--win-bg);
+    background-size:26px 26px,26px 26px,auto}
+  .main-media{border:1.5px solid var(--wire-dim);border-radius:10px;overflow:hidden;margin-bottom:20px;background:#000}
+  .main-media img{width:100%;height:auto;max-height:300px;object-fit:cover;display:block}
+  .main-media.soon{
+    min-height:170px;display:grid;place-items:center;text-align:center;padding:28px;
+    background:
+      linear-gradient(var(--grid-line) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid-line) 1px,transparent 1px),var(--panel);
+    background-size:26px 26px,26px 26px,auto;border-style:dashed;
+  }
+  .main-media.soon .big-emoji{font-size:52px;line-height:1}
+  .main-media.soon p{margin:10px 0 0;font-family:var(--stencil);font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--wire-bright)}
+  .main-kicker{font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--wire-bright);display:flex;align-items:center;gap:10px;margin:0 0 12px}
+  .main-kicker::before{content:"";width:28px;height:2px;background:var(--wire);display:inline-block}
+  .main-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .main h1{font-family:var(--stencil);font-weight:400;letter-spacing:.03em;font-size:clamp(28px,4vw,40px);line-height:1.05;margin:0;text-transform:uppercase}
+  .badge{display:inline-flex;align-items:center;gap:7px;font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:7px 11px;border-radius:999px;white-space:nowrap}
+  .badge .dot{width:8px;height:8px;border-radius:50%;background:currentColor;flex:0 0 8px}
+  .badge-live{background:var(--live-bg);color:var(--live)}
+  .badge-live .dot{animation:pulse 1.8s ease-in-out infinite}
+  .badge-soon{background:var(--amber-bg);color:var(--amber)}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  @media (prefers-reduced-motion: reduce){ .badge-live .dot{animation:none} }
+  .version{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--dim);margin-top:8px}
+  .main-desc{margin:16px 0 0;font-size:16px;color:var(--muted);max-width:62ch}
+  .main-desc strong{color:var(--ink)}
+  .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+  .tag{font-size:12.5px;font-weight:600;padding:6px 10px;border-radius:999px;background:var(--panel-2);border:1px solid var(--line);color:var(--muted)}
+  .url-line{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px;word-break:break-all;margin:18px 0 0}
+  .url-line span{color:var(--dim)}
+  .main-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;font-weight:700;font-size:15px;padding:12px 18px;border-radius:10px;border:1px solid transparent;cursor:pointer;font-family:inherit;background:var(--panel-2);color:var(--ink);min-height:44px}
+  .btn-primary{background:var(--logo-blue);color:#fff}
+  .btn-primary:hover{background:var(--blue-deep)}
+  .btn-ghost{background:var(--panel-2);border-color:var(--wire-dim);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--wire)}
+  .host-note{font-size:13px;color:var(--dim);margin:14px 0 0;max-width:62ch}
+  .host-note strong{color:var(--muted)}
+
+  /* How it works strip */
+  .how{margin:30px 0 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .how-head{padding:18px 20px 4px}
+  .how-head h2{font-family:var(--stencil);font-size:16px;font-weight:400;letter-spacing:.04em;margin:0;color:#45aae6;text-transform:uppercase}
+  .how-head p{margin:6px 0 0;color:var(--muted);font-size:14px;max-width:62ch}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr)}
+  .step{padding:18px 20px 20px;border-top:1px solid var(--line)}
+  .step + .step{border-left:1px solid var(--line)}
+  .step-num{font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:600;letter-spacing:.12em;color:var(--wire-bright);text-transform:uppercase}
+  .step h3{font-size:15px;margin:8px 0 6px;font-weight:700}
+  .step p{margin:0;font-size:13.5px;color:var(--muted)}
+  .step code{font-family:"IBM Plex Mono",monospace;font-size:12px;background:var(--panel-wire);padding:2px 6px;border-radius:5px;color:var(--ink)}
+
+  /* Footer line inside the window */
+  .win-foot{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start}
+  .win-foot p{margin:0;color:var(--muted);font-size:13.5px;max-width:56ch}
+  .win-foot strong{color:var(--ink)}
+  .win-foot .fineprint{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--dim);letter-spacing:.04em;margin-top:10px}
+  .foot-links{display:flex;gap:8px;flex-wrap:wrap}
+  .foot-links a{display:inline-flex;align-items:center;min-height:40px;padding:8px 12px;border:1px solid var(--wire-dim);border-radius:999px;background:var(--panel);text-decoration:none;font-size:13px;font-weight:600}
+  .foot-links a:hover{border-color:var(--wire)}
+
+  /* ===== Site popup viewer (95% of screen) ===== */
+  .site-modal{position:fixed;inset:0;z-index:60;display:grid;place-items:center;background:rgba(4,16,24,.78)}
+  .site-modal-box{width:95vw;height:95vh;height:95dvh;display:flex;flex-direction:column;background:var(--win-bg);border:1.5px solid var(--wire-dim);border-radius:12px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+  .site-modal-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--panel)}
+  .site-modal-title{font-family:var(--stencil);font-size:16px;font-weight:400;letter-spacing:.03em;margin:0;line-height:1.2;text-transform:uppercase;color:#45aae6}
+  .site-modal-url{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--dim);word-break:break-all}
+  .site-modal-actions{display:flex;gap:8px;flex-wrap:wrap}
+  .site-modal-actions .btn{min-height:40px;padding:8px 14px;font-size:13.5px}
+  .site-frame-wrap{position:relative;flex:1;background:#fff}
+  .site-frame{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:#fff}
+  .site-modal-status{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px;color:var(--muted);background:var(--win-bg);font-size:15px}
+  body.modal-open{overflow:hidden}
+
+  @media (max-width:860px){
+    .win{width:100vw;height:100vh;height:100dvh;border-radius:0;border:0;left:0;top:0;transform:none}
+    .wf-corners{display:none}
+    .titlebar{border-radius:0}
+    .sidebar{width:58px;padding:0 6px 14px;overflow-x:hidden}
+    .sidebar .sidebar-toggle{justify-content:center;padding:8px 0}
+    .sidebar .sidebar-toggle-label{display:none}
+    .sidebar .sidebar-toggle .st-collapse{display:none}
+    .sidebar .sidebar-toggle .st-expand{display:grid}
+    .sidebar .cat{justify-content:center;font-size:0;letter-spacing:0;margin:12px 0 3px;gap:0}
+    .sidebar .cat .cat-count{display:none}
+    .sidebar .chan{justify-content:center;padding:8px 0;gap:0;min-height:40px}
+    .sidebar .chan .cname,.sidebar .chan .cdot{display:none}
+    .sidebar .side-foot{display:none}
+    .main{padding:18px 16px 20px}
+    .steps{grid-template-columns:1fr}
+    .step + .step{border-left:0}
+    .desk-hint{display:none}
+    .home-chip span{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="desktop" id="desktop">
+
+  <p class="desk-hint">Pick a channel on the left to see that repo. Nova Bot opens its website in a popup at 95% of the screen. The button at the top of the channel list collapses it to an emoji toolbar, and the search button in the title bar filters the list.</p>
+
+  <button class="reopen" type="button" id="reopenBtn">Reopen the Albiar window</button>
+
+  <!-- ======================= WINDOW ======================= -->
+  <section class="win" id="win" aria-label="Albiar Portal window">
+
+    <!-- Blueprint corner brackets on the window frame, like the Albiar page -->
+    <div class="wf-corners" aria-hidden="true"><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i></div>
+
+    <!-- Title bar: brand, home, search, window controls -->
+    <header class="titlebar" id="titlebar">
+      <div class="searchrow" id="searchrow">
+        <input type="search" id="searchInput" placeholder="Filter channels..." aria-label="Filter channels" />
+      </div>
+      <div class="title-brand">
+        <img src="assets/albiar-logo.png" alt="Albiar chevron logo" width="34" height="34" />
+        <span class="tb-text">
+          <span class="tb-name">Albiar</span>
+          <span class="tb-tag">Portal: Jordan&rsquo;s repos as channels</span>
+        </span>
+      </div>
+      <span class="home-chip" role="note" aria-label="This portal lives at jordanalbiar.github.io, the root site">
+        <span class="dot" aria-hidden="true"></span><span>jordanalbiar.github.io &middot; portal home</span>
+      </span>
+      <div class="win-controls">
+        <button class="wc search-btn" type="button" id="wcSearch" aria-pressed="false" aria-label="Search channels" title="Search channels">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+        </button>
+        <button class="wc" type="button" id="wcMin" aria-label="Minimize window">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14"/></svg>
+        </button>
+        <button class="wc" type="button" id="wcMax" aria-label="Maximize or restore window">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="5" width="14" height="14" rx="2"/></svg>
+        </button>
+        <button class="wc close" type="button" id="wcClose" aria-label="Close window">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="win-body">
+      <!-- Channels sidebar: one channel per repo -->
+      <nav class="sidebar" id="sidebar" aria-label="Albiar repo channels">
+        <div class="sidebar-top">
+          <button class="sidebar-toggle" type="button" id="sidebarToggle" aria-pressed="true" title="Collapse the channel list to an emoji toolbar" aria-label="Collapse the channels panel">
+            <span class="sidebar-toggle-label">Repo channels</span>
+            <span class="st-ico st-collapse" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></span>
+            <span class="st-ico st-expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></span>
+          </button>
+        </div>
+        <div id="channel-list"></div>
+        <p class="side-empty" id="side-empty">No channel matches that filter.</p>
+        <p class="side-foot"><strong>One channel per repo.</strong> Every channel is one of Jordan&rsquo;s GitHub repos. A new repo gets a new channel here, in the same list. A channel turns green the day its website goes live.</p>
+      </nav>
+
+      <!-- Main panel: the selected channel -->
+      <main class="main" id="main" aria-live="polite"></main>
+    </div>
+  </section>
+</div>
+
+<!-- ================= SITE POPUP VIEWER ================= -->
+<div class="site-modal" id="site-modal" hidden role="dialog" aria-modal="true" aria-labelledby="site-modal-title">
+  <div class="site-modal-box">
+    <div class="site-modal-bar">
+      <div>
+        <h2 class="site-modal-title" id="site-modal-title">Project website</h2>
+        <span class="site-modal-url" id="site-modal-url"></span>
+      </div>
+      <div class="site-modal-actions">
+        <a class="btn btn-ghost" id="site-modal-open" href="https://jordanalbiar.github.io/nova-bot/" target="_blank" rel="noopener">Open full page &#8599;</a>
+        <button class="btn btn-primary" type="button" id="site-modal-close">Close</button>
+      </div>
+    </div>
+    <div class="site-frame-wrap">
+      <iframe class="site-frame" id="site-frame" title="Project website loaded from its GitHub repo" src="about:blank"></iframe>
+      <div class="site-modal-status" id="site-modal-status">Loading the site from GitHub...</div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- Channels: one channel per GitHub repo ---------- */
+  var CHANNELS = [
+    {
+      key: "nova-bot",
+      emoji: "\uD83E\uDD16",
+      name: "nova-bot",
+      title: "Nova Bot",
+      cat: "Live now",
+      status: "live",
+      version: "v1.0 Phelsuma",
+      siteUrl: "https://jordanalbiar.github.io/nova-bot/",
+      repoUrl: "https://github.com/jordanalbiar/nova-bot",
+      apkUrl: "https://github.com/jordanalbiar/nova-bot/releases/download/v1.0/nova-bot-v1.0-phelsuma.apk",
+      banner: "assets/nova-banner.png",
+      desc: "A Discord bot hosted on an Android phone that runs the whole server: moderation and community tools, member and client cards, music in voice channels, and video playlists you can edit and manage. Built for the Albiar community, with 30 plugins under the hood.",
+      tags: ["Discord bot", "Android 10+", "30 plugins", "Whole server control"],
+      note: "The website is served by GitHub Pages from the nova-bot repo and loaded live into the popup. The APK is also on GitHub, in Releases, and the download button goes straight to it."
+    },
+    {
+      key: "triggerd",
+      emoji: "\u26A1",
+      name: "triggerd",
+      title: "TRIGGER'D",
+      cat: "Not built yet",
+      status: "soon",
+      version: "Website not built yet",
+      siteUrl: "",
+      repoUrl: "https://github.com/jordanalbiar/triggerd",
+      apkUrl: "",
+      banner: "",
+      desc: "TRIGGER'D is a high-performance, zero-latency streaming alert and interactive stream overlay engine engineered for live creators across target platforms.",
+      tags: ["Streaming alerts", "Stream overlays", "Live creators"],
+      note: "No website yet, so this channel links to the repo. When the site is built it will open here in the same 95% popup, wired exactly like Nova Bot."
+    },
+    {
+      key: "creative-canvas",
+      emoji: "\uD83C\uDFA8",
+      name: "Creative-Canvas",
+      title: "Creative Canvas",
+      cat: "Not built yet",
+      status: "soon",
+      version: "Website not built yet",
+      siteUrl: "",
+      repoUrl: "https://github.com/jordanalbiar/Creative-Canvas",
+      apkUrl: "",
+      banner: "",
+      desc: "Creative Canvas project from Albiar. Its website is not built yet, so this channel links to the repo for now.",
+      tags: ["Albiar project", "In progress"],
+      note: "No website yet, so this channel links to the repo. When the site is built it will open here in the same 95% popup, wired exactly like Nova Bot."
+    },
+    {
+      key: "vdo-portal",
+      emoji: "\uD83D\uDCF9",
+      name: "vdo-portal",
+      title: "VDO Portal",
+      cat: "Not built yet",
+      status: "soon",
+      version: "Website not built yet",
+      siteUrl: "",
+      repoUrl: "https://github.com/jordanalbiar/vdo-portal",
+      apkUrl: "",
+      banner: "",
+      desc: "Video portal project from Albiar. Its website is not built yet, so this channel links to the repo for now.",
+      tags: ["Video", "Albiar project", "In progress"],
+      note: "No website yet, so this channel links to the repo. When the site is built it will open here in the same 95% popup, wired exactly like Nova Bot."
+    }
+  ];
+  var CATS = ["Live now", "Not built yet"];
+  var current = "nova-bot";
+  var yearEl = null;
+
+  var listEl = document.getElementById("channel-list");
+  var mainEl = document.getElementById("main");
+  var sidebar = document.getElementById("sidebar");
+  var emptyEl = document.getElementById("side-empty");
+
+  function esc(s){
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  /* ---------- Render the channel list ---------- */
+  function renderList(){
+    var html = "";
+    CATS.forEach(function(cat){
+      var chans = CHANNELS.filter(function(c){ return c.cat === cat; });
+      if(!chans.length) return;
+      html += '<div class="cat" data-cat="' + esc(cat) + '">' + esc(cat) +
+        '<span class="cat-count">' + chans.length + '</span></div>';
+      chans.forEach(function(c){
+        html += '<button class="chan' + (c.key === current ? " active" : "") + '" type="button" data-chan="' + esc(c.key) + '">' +
+          '<span class="cemoji" aria-hidden="true">' + c.emoji + '</span>' +
+          '<span class="cname">' + esc(c.name) + '</span>' +
+          '<span class="cdot ' + c.status + '" aria-hidden="true" title="' + (c.status === "live" ? "Live" : "Not built yet") + '"></span>' +
+          '</button>';
+      });
+    });
+    listEl.innerHTML = html;
+    Array.prototype.slice.call(listEl.querySelectorAll(".chan")).forEach(function(b){
+      b.addEventListener("click", function(){ selectChannel(b.getAttribute("data-chan")); });
+    });
+  }
+
+  /* ---------- Render the selected channel in the main panel ---------- */
+  function renderMain(){
+    var c = null;
+    CHANNELS.forEach(function(ch){ if(ch.key === current) c = ch; });
+    if(!c) return;
+    var badge = c.status === "live"
+      ? '<span class="badge badge-live"><span class="dot" aria-hidden="true"></span> Live on GitHub Pages</span>'
+      : '<span class="badge badge-soon"><span class="dot" aria-hidden="true"></span> Not built yet</span>';
+    var media = c.banner
+      ? '<div class="main-media"><img src="' + esc(c.banner) + '" alt="Nova Bot v1.0 Phelsuma banner with Nova and a Phelsuma day gecko" /></div>'
+      : '<div class="main-media soon"><div><div class="big-emoji" aria-hidden="true">' + c.emoji + '</div><p>Website not built yet</p></div></div>';
+    var tags = c.tags.map(function(t){ return '<span class="tag">' + esc(t) + '</span>'; }).join("");
+    var urlLine = c.siteUrl
+      ? '<p class="url-line"><span>Loads:</span> ' + esc(c.siteUrl.replace(/^https:\/\//, "")) + '</p>'
+      : '<p class="url-line"><span>Repo:</span> ' + esc(c.repoUrl.replace(/^https:\/\//, "")) + '</p>';
+    var actions = "";
+    if(c.siteUrl){
+      actions += '<button class="btn btn-primary" type="button" data-open-site data-site-name="' + esc(c.title) + '" data-site-url="' + esc(c.siteUrl) + '">Open ' + esc(c.title) + ' website</button>';
+    }
+    actions += '<a class="btn btn-ghost" href="' + esc(c.repoUrl) + '" target="_blank" rel="noopener">GitHub repo</a>';
+    if(c.apkUrl){
+      actions += '<a class="btn btn-ghost" href="' + esc(c.apkUrl) + '" target="_blank" rel="noopener">Download APK</a>';
+    }
+    mainEl.innerHTML =
+      media +
+      '<p class="main-kicker">Channel: #' + esc(c.name) + '</p>' +
+      '<div class="main-head"><h1>' + esc(c.title) + '</h1>' + badge + '</div>' +
+      '<p class="version">' + esc(c.version) + ' &middot; Repo: jordanalbiar/' + esc(c.name) + '</p>' +
+      '<p class="main-desc">' + esc(c.desc) + '</p>' +
+      '<div class="tags" aria-label="' + esc(c.title) + ' highlights">' + tags + '</div>' +
+      urlLine +
+      '<div class="main-actions">' + actions + '</div>' +
+      '<p class="host-note">' + esc(c.note) + '</p>' +
+      '<section class="how" aria-labelledby="how-title">' +
+        '<div class="how-head"><h2 id="how-title">How the portal works</h2>' +
+        '<p>Every project website is an HTML file in that project\'s GitHub repo, published with GitHub Pages. The portal loads it into a popup at 95% of the screen, so each site is one tap away and you never leave this page.</p></div>' +
+        '<div class="steps">' +
+          '<div class="step"><span class="step-num">Step 01</span><h3>One front door, at the root</h3><p>This portal is the site at <code>jordanalbiar.github.io</code> itself &mdash; the root, with no /albiar directory in between. It is the only link you ever need to share.</p></div>' +
+          '<div class="step"><span class="step-num">Step 02</span><h3>Websites live in their repos</h3><p>Each project\'s website is added to its own GitHub repo as HTML and served by GitHub Pages, the way the Nova Bot website was added to the nova-bot repo.</p></div>' +
+          '<div class="step"><span class="step-num">Step 03</span><h3>Open in the popup</h3><p>Pick a live channel and the portal loads that repo\'s website into a popup at 95% of the screen. Close the popup and you are right back at the portal.</p></div>' +
+        '</div>' +
+      '</section>' +
+      '<div class="win-foot">' +
+        '<div><p><strong>Albiar</strong> is a father and son designer and developer team, building a network for designers and developers to collaborate. Architectural design, photography, graphic design, and web development, with over 60 years of combined experience.</p>' +
+        '<p class="fineprint">ALBIAR PORTAL &middot; JORDANALBIAR.GITHUB.IO (ROOT) &middot; REPOS AS CHANNELS &middot; 95% POPUP VIEWER &middot; <span id="year"></span></p></div>' +
+        '<div class="foot-links"><a href="https://github.com/jordanalbiar" target="_blank" rel="noopener">GitHub: jordanalbiar</a><a href="mailto:albiarnetwork@gmail.com">albiarnetwork@gmail.com</a></div>' +
+      '</div>';
+    yearEl = document.getElementById("year");
+    if(yearEl) yearEl.textContent = new Date().getFullYear();
+    wireOpenButtons();
+  }
+
+  function selectChannel(key){
+    current = key;
+    renderList();
+    renderMain();
+  }
+
+  /* ---------- Sidebar collapse to emoji toolbar ---------- */
+  var sidebarToggle = document.getElementById("sidebarToggle");
+  sidebarToggle.addEventListener("click", function(){
+    var mini = sidebar.classList.toggle("mini");
+    sidebarToggle.setAttribute("aria-pressed", mini ? "false" : "true");
+    sidebarToggle.title = mini ? "Expand the channel list" : "Collapse the channel list to an emoji toolbar";
+    sidebarToggle.setAttribute("aria-label", mini ? "Expand the channels panel" : "Collapse the channels panel");
+  });
+
+  /* ---------- Channel search filter ---------- */
+  var searchBtn = document.getElementById("wcSearch");
+  var searchRow = document.getElementById("searchrow");
+  var searchInput = document.getElementById("searchInput");
+  searchBtn.addEventListener("click", function(){
+    var on = searchRow.classList.toggle("on");
+    searchBtn.classList.toggle("on", on);
+    searchBtn.setAttribute("aria-pressed", on ? "true" : "false");
+    if(on) searchInput.focus();
+    else { searchInput.value = ""; applyFilter(""); }
+  });
+  searchInput.addEventListener("input", function(){ applyFilter(searchInput.value); });
+  function applyFilter(q){
+    q = (q || "").trim().toLowerCase();
+    var visible = 0;
+    Array.prototype.slice.call(listEl.querySelectorAll(".chan")).forEach(function(b){
+      var key = b.getAttribute("data-chan");
+      var hay = key;
+      CHANNELS.forEach(function(c){
+        if(c.key === key) hay = (c.key + " " + c.name + " " + c.title).toLowerCase();
+      });
+      var show = !q || hay.indexOf(q) !== -1;
+      b.classList.toggle("is-hidden", !show);
+      if(show) visible++;
+    });
+    CATS.forEach(function(cat){
+      var catEl = listEl.querySelector('[data-cat="' + cat + '"]');
+      if(!catEl) return;
+      var anyVisible = false;
+      CHANNELS.forEach(function(c){
+        if(c.cat !== cat) return;
+        var b = listEl.querySelector('[data-chan="' + c.key + '"]');
+        if(b && !b.classList.contains("is-hidden")) anyVisible = true;
+      });
+      catEl.classList.toggle("is-hidden", !anyVisible);
+    });
+    emptyEl.classList.toggle("show", visible === 0);
+  }
+
+  /* ---------- Window controls: minimize, maximize, close ---------- */
+  var win = document.getElementById("win");
+  var reopenBtn = document.getElementById("reopenBtn");
+  function foldWindow(){
+    win.classList.add("gone");
+    reopenBtn.classList.add("show");
+  }
+  document.getElementById("wcMin").addEventListener("click", foldWindow);
+  document.getElementById("wcClose").addEventListener("click", foldWindow);
+  document.getElementById("wcMax").addEventListener("click", function(){
+    win.classList.toggle("full");
+  });
+  reopenBtn.addEventListener("click", function(){
+    win.classList.remove("gone");
+    reopenBtn.classList.remove("show");
+  });
+
+  /* ---------- Site popup viewer: loads a repo's website at 95% of the screen ---------- */
+  var modal = document.getElementById("site-modal");
+  var frame = document.getElementById("site-frame");
+  var status = document.getElementById("site-modal-status");
+  var titleEl = document.getElementById("site-modal-title");
+  var urlEl = document.getElementById("site-modal-url");
+  var openLink = document.getElementById("site-modal-open");
+  var closeBtn = document.getElementById("site-modal-close");
+  var lastFocus = null;
+
+  function openSite(name, url){
+    if(!url) return;
+    lastFocus = document.activeElement;
+    titleEl.textContent = name;
+    urlEl.textContent = url.replace(/^https:\/\//, "");
+    openLink.href = url;
+    status.hidden = false;
+    status.textContent = "Loading " + name + " from GitHub...";
+    frame.src = url;
+    modal.hidden = false;
+    document.body.classList.add("modal-open");
+    closeBtn.focus();
+  }
+  function closeSite(){
+    if(modal.hidden) return;
+    modal.hidden = true;
+    frame.src = "about:blank";
+    document.body.classList.remove("modal-open");
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  frame.addEventListener("load", function(){
+    if(frame.src && frame.src !== "about:blank") status.hidden = true;
+  });
+  closeBtn.addEventListener("click", closeSite);
+  modal.addEventListener("click", function(ev){ if(ev.target === modal) closeSite(); });
+  document.addEventListener("keydown", function(ev){
+    if(ev.key === "Escape") closeSite();
+  });
+
+  /* Every live channel opens through this same wiring:
+     set data-site-url on the button and it loads that repo's site in the popup. */
+  function wireOpenButtons(){
+    Array.prototype.slice.call(document.querySelectorAll("[data-open-site]")).forEach(function(b){
+      if(b.getAttribute("data-wired")) return;
+      b.setAttribute("data-wired", "true");
+      b.addEventListener("click", function(ev){
+        var url = b.getAttribute("data-site-url");
+        if(!url) return;
+        ev.preventDefault();
+        openSite(b.getAttribute("data-site-name") || "Project website", url);
+      });
+    });
+  }
+
+  renderList();
+  renderMain();
+})();
+</script>
+</body>
+</html>
