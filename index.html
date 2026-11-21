@@ -419,7 +419,7 @@
       siteUrl: "https://jordanalbiar.github.io/nova-bot/",
       repoUrl: "https://github.com/jordanalbiar/nova-bot",
       apkUrl: "https://github.com/jordanalbiar/nova-bot/releases/download/v1.0/nova-bot-v1.0-phelsuma.apk",
-      banner: "assets/nova-banner.png",
+      banner: "assets/nova-cover.png",
       desc: "A Discord bot hosted on an Android phone that runs the whole server: moderation and community tools, member and client cards, music in voice channels, and video playlists you can edit and manage. Built for the Albiar community, with 30 plugins under the hood.",
       tags: ["Discord bot", "Android 10+", "30 plugins", "Whole server control"],
       note: "The website is served by GitHub Pages from the nova-bot repo and loaded live into the popup. The APK is also on GitHub, in Releases, and the download button goes straight to it."
@@ -513,7 +513,7 @@
     var work = CHANNELS.filter(function(ch){ return ch.key !== "intro"; });
     var thumbs = work.map(function(w){
       var media = w.banner
-        ? '<span class="work-thumb-media"><img src="' + esc(w.banner) + '" alt="' + esc(w.title) + ' banner" /></span>'
+        ? '<span class="work-thumb-media"><img src="' + esc(w.banner) + '" alt="' + esc(w.title) + ' GitHub cover image" /></span>'
         : '<span class="work-thumb-media"><span class="wt-emoji" aria-hidden="true">' + w.emoji + '</span></span>';
       var statusLabel = w.status === "live" ? "Live" : "Not built yet";
       var statusClass = w.status === "live" ? "wt-status-live" : "wt-status-soon";
@@ -568,7 +568,7 @@
       ? '<span class="badge badge-live"><span class="dot" aria-hidden="true"></span> Live on GitHub Pages</span>'
       : '<span class="badge badge-soon"><span class="dot" aria-hidden="true"></span> Not built yet</span>';
     var media = c.banner
-      ? '<div class="main-media"><img src="' + esc(c.banner) + '" alt="Nova Bot v1.0 Phelsuma banner with Nova and a Phelsuma day gecko" /></div>'
+      ? '<div class="main-media"><img src="' + esc(c.banner) + '" alt="Nova Bot GitHub cover image — wireframe Nova figure, NOVA wordmark, and platform icons" /></div>'
       : '<div class="main-media soon"><div><div class="big-emoji" aria-hidden="true">' + c.emoji + '</div><p>Website not built yet</p></div></div>';
     var tags = c.tags.map(function(t){ return '<span class="tag">' + esc(t) + '</span>'; }).join("");
     var urlLine = c.siteUrl
