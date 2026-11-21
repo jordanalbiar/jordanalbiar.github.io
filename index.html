@@ -4,9 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="dark" />
-<meta name="description" content="Albiar Portal at jordanalbiar.github.io: Jordan Albiar — a creative artist and maker of things in California. Intro channel opens by default, with his GitHub profile picture, social links, and recent work. His repos are channels; Nova Bot is live and opens in a popup at 95 percent of the screen." />
+<meta name="description" content="Jordan Albiar — portfolio and GitHub front door at jordanalbiar.github.io: a creative artist and maker of things in California. Intro channel opens by default, with his GitHub profile picture, social links, and recent work. His repos are channels; Nova Bot is live and opens in a popup at 95 percent of the screen." />
 <link rel="icon" href="assets/albiar-logo.png" />
-<title>Albiar Portal</title>
+<title>Jordan Albiar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -41,7 +41,7 @@
   a{color:inherit}
   [hidden]{display:none !important}
 
-  /* ---------- Desktop backdrop: blueprint grid, same as the Albiar page ---------- */
+  /* ---------- Desktop backdrop: blueprint grid ---------- */
   .desktop{position:fixed;inset:0;background:
     radial-gradient(760px 480px at 50% 34%,rgba(27,138,181,.14),transparent 70%),
     linear-gradient(var(--grid-major) 1px,transparent 1px),
@@ -68,7 +68,7 @@
   }
   .win.full{left:0;top:0;transform:none;width:100vw;height:100vh;height:100dvh;border-radius:0;border:0}
   .win.gone{display:none}
-  /* Blueprint corner brackets riding the window frame, like the Albiar page */
+  /* Blueprint corner brackets riding the window frame */
   .wf-corners{position:absolute;inset:7px;z-index:55;pointer-events:none}
   .wf-corners i{position:absolute;width:22px;height:22px;border:0 solid var(--wire)}
   .wf-corners .tl{top:0;left:0;border-top-width:2.5px;border-left-width:2.5px}
@@ -124,7 +124,7 @@
   .win-body{flex:1;display:flex;min-height:0;border-radius:0 0 14px 14px;overflow:hidden}
   .win.full .win-body{border-radius:0}
 
-  /* Channels sidebar, same style as the Albiar page */
+  /* Channels sidebar */
   .sidebar{
     flex:none;width:232px;
     background:
@@ -304,14 +304,14 @@
 <body>
 <div class="desktop" id="desktop">
 
-  <p class="desk-hint">The intro channel opens first — Jordan&rsquo;s profile and recent work. Pick a repo channel on the left to see that project. Nova Bot opens its website in a popup at 95% of the screen. Close the window and click the Albiar chevron logo to bring it back.</p>
+  <p class="desk-hint">The intro channel opens first — Jordan&rsquo;s profile and recent work. Pick a repo channel on the left to see that project. Nova Bot opens its website in a popup at 95% of the screen. Close the window and click the chevron logo to bring it back.</p>
 
-  <button class="reopen" type="button" id="reopenBtn" aria-label="Reopen the Albiar window" title="Reopen the Albiar window"><img src="assets/albiar-logo.png" alt="Albiar chevron logo" width="110" height="110" /><span class="reopen-label">Open Albiar</span></button>
+  <button class="reopen" type="button" id="reopenBtn" aria-label="Reopen the Jordan Albiar window" title="Reopen the Jordan Albiar window"><img src="assets/albiar-logo.png" alt="Jordan Albiar chevron logo" width="110" height="110" /><span class="reopen-label">Jordan Albiar</span></button>
 
   <!-- ======================= WINDOW ======================= -->
-  <section class="win" id="win" aria-label="Albiar Portal window">
+  <section class="win" id="win" aria-label="Jordan Albiar portfolio window">
 
-    <!-- Blueprint corner brackets on the window frame, like the Albiar page -->
+    <!-- Blueprint corner brackets on the window frame -->
     <div class="wf-corners" aria-hidden="true"><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i></div>
 
     <!-- Title bar: brand, home, search, window controls -->
@@ -320,14 +320,14 @@
         <input type="search" id="searchInput" placeholder="Filter channels..." aria-label="Filter channels" />
       </div>
       <div class="title-brand">
-        <img src="assets/albiar-logo.png" alt="Albiar chevron logo" width="34" height="34" />
+        <img src="assets/albiar-logo.png" alt="Jordan Albiar chevron logo" width="34" height="34" />
         <span class="tb-text">
-          <span class="tb-name">Albiar</span>
-          <span class="tb-tag">Portal: Jordan&rsquo;s repos as channels</span>
+          <span class="tb-name">Jordan Albiar</span>
+          <span class="tb-tag">Portfolio: my repos as channels</span>
         </span>
       </div>
-      <span class="home-chip" role="note" aria-label="This portal lives at jordanalbiar.github.io, the root site">
-        <span class="dot" aria-hidden="true"></span><span>jordanalbiar.github.io &middot; portal home</span>
+      <span class="home-chip" role="note" aria-label="This portfolio lives at jordanalbiar.github.io, the root site">
+        <span class="dot" aria-hidden="true"></span><span>jordanalbiar.github.io &middot; portfolio home</span>
       </span>
       <div class="win-controls">
         <button class="wc search-btn" type="button" id="wcSearch" aria-pressed="false" aria-label="Search channels" title="Search channels">
@@ -347,7 +347,7 @@
 
     <div class="win-body">
       <!-- Channels sidebar: one channel per repo -->
-      <nav class="sidebar" id="sidebar" aria-label="Albiar repo channels">
+      <nav class="sidebar" id="sidebar" aria-label="Jordan Albiar repo channels">
         <div class="sidebar-top">
           <button class="sidebar-toggle" type="button" id="sidebarToggle" aria-pressed="true" title="Collapse the channel list to an emoji toolbar" aria-label="Collapse the channels panel">
             <span class="sidebar-toggle-label">Channels</span>
@@ -420,7 +420,7 @@
       repoUrl: "https://github.com/jordanalbiar/nova-bot",
       apkUrl: "https://github.com/jordanalbiar/nova-bot/releases/download/v1.0/nova-bot-v1.0-phelsuma.apk",
       banner: "assets/nova-cover.png",
-      desc: "A Discord bot hosted on an Android phone that runs the whole server: moderation and community tools, member and client cards, music in voice channels, and video playlists you can edit and manage. Built for the Albiar community, with 30 plugins under the hood.",
+      desc: "A Discord bot hosted on an Android phone that runs the whole server: moderation and community tools, member and client cards, music in voice channels, and video playlists you can edit and manage. Built by Jordan Albiar, with 30 plugins under the hood.",
       tags: ["Discord bot", "Android 10+", "30 plugins", "Whole server control"],
       note: "The website is served by GitHub Pages from the nova-bot repo and loaded live into the popup. The APK is also on GitHub, in Releases, and the download button goes straight to it."
     },
@@ -452,8 +452,8 @@
       repoUrl: "https://github.com/jordanalbiar/Creative-Canvas",
       apkUrl: "",
       banner: "",
-      desc: "Creative Canvas project from Albiar. Its website is not built yet, so this channel links to the repo for now.",
-      tags: ["Albiar project", "In progress"],
+      desc: "Creative Canvas, a project by Jordan Albiar. Its website is not built yet, so this channel links to the repo for now.",
+      tags: ["Creative project", "In progress"],
       note: "No website yet, so this channel links to the repo. When the site is built it will open here in the same 95% popup, wired exactly like Nova Bot."
     },
     {
@@ -468,8 +468,8 @@
       repoUrl: "https://github.com/jordanalbiar/vdo-portal",
       apkUrl: "",
       banner: "",
-      desc: "Video portal project from Albiar. Its website is not built yet, so this channel links to the repo for now.",
-      tags: ["Video", "Albiar project", "In progress"],
+      desc: "Video portal project by Jordan Albiar. Its website is not built yet, so this channel links to the repo for now.",
+      tags: ["Video", "Project", "In progress"],
       note: "No website yet, so this channel links to the repo. When the site is built it will open here in the same 95% popup, wired exactly like Nova Bot."
     }
   ];
@@ -530,7 +530,7 @@
           '<div class="main-head"><h1>Jordan Albiar</h1><span class="badge badge-live"><span class="dot" aria-hidden="true"></span> Maker of things</span></div>' +
           '<p class="intro-bio">A creative artist and maker of things.</p>' +
           '<p class="intro-loc">California</p>' +
-          '<p class="main-desc">I&rsquo;m Jordan — a creative artist in California and a maker of things. I design and build: software, bots, and creative projects, as one half of Albiar, a father-and-son designer and developer team. This portal is my front door — every repo is a channel on the left, and the work below is where to start.</p>' +
+          '<p class="main-desc">I&rsquo;m Jordan — a creative artist in California and a maker of things. I design and build: software, bots, and creative projects. This portfolio is my front door — every repo is a channel on the left, and the work below is where to start.</p>' +
           '<div class="tags" aria-label="Jordan Albiar highlights"><span class="tag">Maker of things</span><span class="tag">Creative artist</span><span class="tag">California</span><span class="tag">Designer &amp; developer</span></div>' +
           '<div class="socials" aria-label="Jordan Albiar social links">' +
             '<a class="social-btn" href="https://github.com/jordanalbiar" target="_blank" rel="noopener"><span class="s-ico" aria-hidden="true">🐙</span> GitHub</a>' +
@@ -546,8 +546,7 @@
         '<div class="work-grid">' + thumbs + '</div>' +
       '</section>' +
       '<div class="win-foot">' +
-        '<div><p><strong>Albiar</strong> is a father and son designer and developer team, building a network for designers and developers to collaborate. Architectural design, photography, graphic design, and web development, with over 60 years of combined experience.</p>' +
-        '<p class="fineprint">ALBIAR PORTAL &middot; JORDANALBIAR.GITHUB.IO (ROOT) &middot; REPOS AS CHANNELS &middot; 95% POPUP VIEWER &middot; <span id="year"></span></p></div>' +
+        '<div><p class="fineprint">JORDAN ALBIAR &middot; JORDANALBIAR.GITHUB.IO (ROOT) &middot; REPOS AS CHANNELS &middot; 95% POPUP VIEWER &middot; <span id="year"></span></p></div>' +
         '<div class="foot-links"><a href="https://github.com/jordanalbiar" target="_blank" rel="noopener">GitHub: jordanalbiar</a></div>' +
       '</div>';
     yearEl = document.getElementById("year");
@@ -602,9 +601,8 @@
         '</div>' +
       '</section>' +
       '<div class="win-foot">' +
-        '<div><p><strong>Albiar</strong> is a father and son designer and developer team, building a network for designers and developers to collaborate. Architectural design, photography, graphic design, and web development, with over 60 years of combined experience.</p>' +
-        '<p class="fineprint">ALBIAR PORTAL &middot; JORDANALBIAR.GITHUB.IO (ROOT) &middot; REPOS AS CHANNELS &middot; 95% POPUP VIEWER &middot; <span id="year"></span></p></div>' +
-        '<div class="foot-links"><a href="https://github.com/jordanalbiar" target="_blank" rel="noopener">GitHub: jordanalbiar</a><a href="mailto:albiarnetwork@gmail.com">albiarnetwork@gmail.com</a></div>' +
+        '<div><p class="fineprint">JORDAN ALBIAR &middot; JORDANALBIAR.GITHUB.IO (ROOT) &middot; REPOS AS CHANNELS &middot; 95% POPUP VIEWER &middot; <span id="year"></span></p></div>' +
+        '<div class="foot-links"><a href="https://github.com/jordanalbiar" target="_blank" rel="noopener">GitHub: jordanalbiar</a></div>' +
       '</div>';
     yearEl = document.getElementById("year");
     if(yearEl) yearEl.textContent = new Date().getFullYear();
