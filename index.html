@@ -419,6 +419,7 @@
       repoUrl: "https://github.com/jordanalbiar/nova-bot",
       apkUrl: "https://github.com/jordanalbiar/nova-bot/releases/download/v1.0/nova-bot-v1.0-phelsuma.apk",
       banner: "assets/nova-cover.png",
+      bannerAlt: "Nova Bot GitHub cover image, a wireframe Nova figure, NOVA wordmark, and platform icons",
       desc: "A Discord bot hosted on an Android phone that runs the whole server: moderation and community tools, member and client cards, music in voice channels, and video playlists you can edit and manage. Built by Jordan Albiar, with 30 plugins under the hood.",
       tags: ["Discord bot", "Android 10+", "30 plugins", "Whole server control"],
       note: "The website is served by GitHub Pages from the nova-bot repo and loaded live into the popup. The APK is also on GitHub, in Releases, and the download button goes straight to it."
@@ -466,7 +467,8 @@
       siteUrl: "",
       repoUrl: "https://github.com/jordanalbiar/vdo-portal",
       apkUrl: "",
-      banner: "",
+      banner: "assets/vdo-portal-banner.jpg",
+      bannerAlt: "VDO Portal banner logo from the vdo-portal repo, a glowing hexagon network mark with the VDO PORTAL wordmark and green and violet circuit lines",
       desc: "Video portal project by Jordan Albiar. Its website is not built yet, so this channel links to the repo for now.",
       tags: ["Video", "Project", "In progress"],
       note: "No website yet, so this channel links to the repo. When the site is built it will open here in the same 95% popup, wired exactly like Nova Bot."
@@ -512,7 +514,7 @@
     var work = CHANNELS.filter(function(ch){ return ch.key !== "intro"; });
     var thumbs = work.map(function(w){
       var media = w.banner
-        ? '<span class="work-thumb-media"><img src="' + esc(w.banner) + '" alt="' + esc(w.title) + ' GitHub cover image" /></span>'
+        ? '<span class="work-thumb-media"><img src="' + esc(w.banner) + '" alt="' + esc(w.bannerAlt || (w.title + " banner")) + '" /></span>'
         : '<span class="work-thumb-media"><span class="wt-emoji" aria-hidden="true">' + w.emoji + '</span></span>';
       var statusLabel = w.status === "live" ? "Live" : "Not built yet";
       var statusClass = w.status === "live" ? "wt-status-live" : "wt-status-soon";
@@ -577,7 +579,7 @@
       ? '<span class="badge badge-live"><span class="dot" aria-hidden="true"></span> Live on GitHub Pages</span>'
       : '<span class="badge badge-soon"><span class="dot" aria-hidden="true"></span> Not built yet</span>';
     var media = c.banner
-      ? '<div class="main-media"><img src="' + esc(c.banner) + '" alt="Nova Bot GitHub cover image, a wireframe Nova figure, NOVA wordmark, and platform icons" /></div>'
+      ? '<div class="main-media"><img src="' + esc(c.banner) + '" alt="' + esc(c.bannerAlt || (c.title + " banner")) + '" /></div>'
       : '<div class="main-media soon"><div><div class="big-emoji" aria-hidden="true">' + c.emoji + '</div><p>Website not built yet</p></div></div>';
     var tags = c.tags.map(function(t){ return '<span class="tag">' + esc(t) + '</span>'; }).join("");
     var urlLine = c.siteUrl
