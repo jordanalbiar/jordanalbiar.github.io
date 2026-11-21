@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="dark" />
-<meta name="description" content="Albiar Portal at jordanalbiar.github.io: Jordan's GitHub repos as channels, in the Albiar page style. Nova Bot is live now and opens in a popup at 95 percent of the screen. The other repos link to GitHub until their sites are built." />
+<meta name="description" content="Albiar Portal at jordanalbiar.github.io: Jordan Albiar — a creative artist and maker of things in California. Intro channel opens by default, with his GitHub profile picture, social links, and recent work. His repos are channels; Nova Bot is live and opens in a popup at 95 percent of the screen." />
 <link rel="icon" href="assets/albiar-logo.png" />
 <title>Albiar Portal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -50,8 +50,12 @@
     linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);
     background-size:auto,130px 130px,130px 130px,26px 26px,26px 26px}
   .desk-hint{position:absolute;left:18px;bottom:18px;font-size:12px;color:var(--dim);max-width:46ch;line-height:1.5;z-index:1}
-  .reopen{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:none;background:var(--blue-deep);border:1px solid rgba(63,185,227,.55);color:#fff;border-radius:12px;padding:13px 20px;font-weight:700;cursor:pointer;box-shadow:0 16px 40px rgba(0,0,0,.5);z-index:5}
+  .reopen{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:none;background:transparent;border:0;padding:0;cursor:pointer;z-index:5;line-height:0}
   .reopen.show{display:block}
+  .reopen img{width:110px;height:110px;display:block;border-radius:18px;border:2px solid var(--wire);box-shadow:0 20px 50px rgba(0,0,0,.65),0 0 34px rgba(61,179,232,.28);object-fit:cover}
+  .reopen:hover img,.reopen:focus-visible img{border-color:var(--wire-bright);box-shadow:0 20px 50px rgba(0,0,0,.65),0 0 44px rgba(61,179,232,.45)}
+  .reopen:focus-visible{outline:2px solid #fff;outline-offset:6px;border-radius:18px}
+  .reopen-label{position:absolute;left:50%;top:calc(100% + 12px);transform:translateX(-50%);font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--wire-bright);white-space:nowrap}
 
   /* ---------- The window ---------- */
   .win{
@@ -156,6 +160,7 @@
   .chan .cdot{margin-left:auto;width:8px;height:8px;border-radius:50%;flex:none}
   .chan .cdot.live{background:var(--live);box-shadow:0 0 8px rgba(61,213,152,.8)}
   .chan .cdot.soon{background:var(--amber)}
+  .chan .cdot.intro{background:var(--wire);box-shadow:0 0 8px rgba(61,179,232,.8)}
   .sidebar.mini .chan{justify-content:center;padding:8px 0;gap:0;min-height:40px}
   .sidebar.mini .chan .cname,.sidebar.mini .chan .cdot{display:none}
   .chan.is-hidden{display:none}
@@ -209,6 +214,35 @@
   .btn-ghost:hover{border-color:var(--wire)}
   .host-note{font-size:13px;color:var(--dim);margin:14px 0 0;max-width:62ch}
   .host-note strong{color:var(--muted)}
+
+  /* Intro channel */
+  .intro-hero{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap}
+  .intro-photo{flex:none;width:168px;height:168px;border-radius:14px;overflow:hidden;border:2px solid var(--wire);box-shadow:0 14px 34px rgba(0,0,0,.5)}
+  .intro-photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .intro-copy{flex:1 1 280px;min-width:0}
+  .intro-copy h1{margin-top:2px}
+  .intro-bio{font-size:18px;color:var(--ink);margin:10px 0 0;font-weight:600}
+  .intro-loc{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--wire-bright);letter-spacing:.08em;text-transform:uppercase;margin:8px 0 0}
+  .socials{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+  .social-btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:10px 14px;border:1.5px solid var(--wire-dim);border-radius:999px;background:var(--panel);text-decoration:none;font-size:13.5px;font-weight:700}
+  .social-btn:hover{border-color:var(--wire);color:#fff;background:var(--panel-wire)}
+  .social-btn .s-ico{font-size:16px;line-height:1}
+  .recent-work{margin:30px 0 0}
+  .recent-work h2{font-family:var(--stencil);font-size:16px;font-weight:400;letter-spacing:.04em;margin:0 0 6px;color:#45aae6;text-transform:uppercase}
+  .recent-work>p{margin:0 0 14px;color:var(--muted);font-size:14px}
+  .work-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .work-thumb{display:flex;flex-direction:column;text-align:left;background:var(--panel);border:1.5px solid var(--line);border-radius:10px;overflow:hidden;cursor:pointer;padding:0;color:var(--ink)}
+  .work-thumb:hover{border-color:var(--wire)}
+  .work-thumb:focus-visible{outline:2px solid var(--ice);outline-offset:2px}
+  .work-thumb-media{height:96px;background:var(--panel-2);display:grid;place-items:center;overflow:hidden}
+  .work-thumb-media img{width:100%;height:100%;object-fit:cover;display:block}
+  .work-thumb-media .wt-emoji{font-size:40px;line-height:1}
+  .work-thumb-body{padding:10px 12px 12px}
+  .work-thumb-body strong{display:block;font-size:13.5px;line-height:1.3}
+  .work-thumb-body span{display:block;font-size:11.5px;color:var(--dim);margin-top:3px;font-family:"IBM Plex Mono",monospace}
+  .work-thumb-body .wt-status-live{color:var(--live)}
+  .work-thumb-body .wt-status-soon{color:var(--amber)}
+  @media (max-width:860px){ .work-grid{grid-template-columns:repeat(2,1fr)} .intro-photo{width:120px;height:120px} }
 
   /* How it works strip */
   .how{margin:30px 0 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
@@ -270,9 +304,9 @@
 <body>
 <div class="desktop" id="desktop">
 
-  <p class="desk-hint">Pick a channel on the left to see that repo. Nova Bot opens its website in a popup at 95% of the screen. The button at the top of the channel list collapses it to an emoji toolbar, and the search button in the title bar filters the list.</p>
+  <p class="desk-hint">The intro channel opens first — Jordan&rsquo;s profile and recent work. Pick a repo channel on the left to see that project. Nova Bot opens its website in a popup at 95% of the screen. Close the window and click the Albiar chevron logo to bring it back.</p>
 
-  <button class="reopen" type="button" id="reopenBtn">Reopen the Albiar window</button>
+  <button class="reopen" type="button" id="reopenBtn" aria-label="Reopen the Albiar window" title="Reopen the Albiar window"><img src="assets/albiar-logo.png" alt="Albiar chevron logo" width="110" height="110" /><span class="reopen-label">Open Albiar</span></button>
 
   <!-- ======================= WINDOW ======================= -->
   <section class="win" id="win" aria-label="Albiar Portal window">
@@ -316,14 +350,14 @@
       <nav class="sidebar" id="sidebar" aria-label="Albiar repo channels">
         <div class="sidebar-top">
           <button class="sidebar-toggle" type="button" id="sidebarToggle" aria-pressed="true" title="Collapse the channel list to an emoji toolbar" aria-label="Collapse the channels panel">
-            <span class="sidebar-toggle-label">Repo channels</span>
+            <span class="sidebar-toggle-label">Channels</span>
             <span class="st-ico st-collapse" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></span>
             <span class="st-ico st-expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></span>
           </button>
         </div>
         <div id="channel-list"></div>
         <p class="side-empty" id="side-empty">No channel matches that filter.</p>
-        <p class="side-foot"><strong>One channel per repo.</strong> Every channel is one of Jordan&rsquo;s GitHub repos. A new repo gets a new channel here, in the same list. A channel turns green the day its website goes live.</p>
+        <p class="side-foot"><strong>Start with #intro.</strong> That&rsquo;s Jordan&rsquo;s profile and recent work. Below it, every channel is one of Jordan&rsquo;s GitHub repos. A new repo gets a new channel here, in the same list. A channel turns green the day its website goes live.</p>
       </nav>
 
       <!-- Main panel: the selected channel -->
@@ -358,6 +392,22 @@
 
   /* ---------- Channels: one channel per GitHub repo ---------- */
   var CHANNELS = [
+    {
+      key: "intro",
+      emoji: "\uD83D\uDC4B",
+      name: "intro",
+      title: "Jordan Albiar",
+      cat: "Start here",
+      status: "intro",
+      version: "California",
+      siteUrl: "",
+      repoUrl: "https://github.com/jordanalbiar",
+      apkUrl: "",
+      banner: "",
+      desc: "A creative artist and maker of things.",
+      tags: ["Maker of things", "Creative artist", "California"],
+      note: ""
+    },
     {
       key: "nova-bot",
       emoji: "\uD83E\uDD16",
@@ -423,8 +473,8 @@
       note: "No website yet, so this channel links to the repo. When the site is built it will open here in the same 95% popup, wired exactly like Nova Bot."
     }
   ];
-  var CATS = ["Live now", "Not built yet"];
-  var current = "nova-bot";
+  var CATS = ["Start here", "Live now", "Not built yet"];
+  var current = "intro";
   var yearEl = null;
 
   var listEl = document.getElementById("channel-list");
@@ -448,7 +498,7 @@
         html += '<button class="chan' + (c.key === current ? " active" : "") + '" type="button" data-chan="' + esc(c.key) + '">' +
           '<span class="cemoji" aria-hidden="true">' + c.emoji + '</span>' +
           '<span class="cname">' + esc(c.name) + '</span>' +
-          '<span class="cdot ' + c.status + '" aria-hidden="true" title="' + (c.status === "live" ? "Live" : "Not built yet") + '"></span>' +
+          '<span class="cdot ' + c.status + '" aria-hidden="true" title="' + (c.status === "live" ? "Live" : (c.status === "intro" ? "Intro" : "Not built yet")) + '"></span>' +
           '</button>';
       });
     });
@@ -458,11 +508,62 @@
     });
   }
 
+  /* ---------- Intro channel: Jordan's profile ---------- */
+  function renderIntro(){
+    var work = CHANNELS.filter(function(ch){ return ch.key !== "intro"; });
+    var thumbs = work.map(function(w){
+      var media = w.banner
+        ? '<span class="work-thumb-media"><img src="' + esc(w.banner) + '" alt="' + esc(w.title) + ' banner" /></span>'
+        : '<span class="work-thumb-media"><span class="wt-emoji" aria-hidden="true">' + w.emoji + '</span></span>';
+      var statusLabel = w.status === "live" ? "Live" : "Not built yet";
+      var statusClass = w.status === "live" ? "wt-status-live" : "wt-status-soon";
+      return '<button class="work-thumb" type="button" data-work-chan="' + esc(w.key) + '" aria-label="Open the ' + esc(w.name) + ' channel">' +
+        media +
+        '<span class="work-thumb-body"><strong>' + esc(w.title) + '</strong><span>#' + esc(w.name) + '</span><span class="' + statusClass + '">' + statusLabel + '</span></span>' +
+        '</button>';
+    }).join("");
+    mainEl.innerHTML =
+      '<p class="main-kicker">Channel: #intro</p>' +
+      '<div class="intro-hero">' +
+        '<div class="intro-photo"><img src="assets/profile.jpg" alt="Jordan Albiar — GitHub profile picture" width="168" height="168" /></div>' +
+        '<div class="intro-copy">' +
+          '<div class="main-head"><h1>Jordan Albiar</h1><span class="badge badge-live"><span class="dot" aria-hidden="true"></span> Maker of things</span></div>' +
+          '<p class="intro-bio">A creative artist and maker of things.</p>' +
+          '<p class="intro-loc">California</p>' +
+          '<p class="main-desc">I&rsquo;m Jordan — a creative artist in California and a maker of things. I design and build: software, bots, and creative projects, as one half of Albiar, a father-and-son designer and developer team. This portal is my front door — every repo is a channel on the left, and the work below is where to start.</p>' +
+          '<div class="tags" aria-label="Jordan Albiar highlights"><span class="tag">Maker of things</span><span class="tag">Creative artist</span><span class="tag">California</span><span class="tag">Designer &amp; developer</span></div>' +
+          '<div class="socials" aria-label="Jordan Albiar social links">' +
+            '<a class="social-btn" href="https://github.com/jordanalbiar" target="_blank" rel="noopener"><span class="s-ico" aria-hidden="true">🐙</span> GitHub</a>' +
+            '<a class="social-btn" href="https://discord.gg/QgSxnJtwV" target="_blank" rel="noopener"><span class="s-ico" aria-hidden="true">💬</span> Discord</a>' +
+            '<a class="social-btn" href="https://instagram.com/albiar.jordan" target="_blank" rel="noopener"><span class="s-ico" aria-hidden="true">📸</span> Instagram</a>' +
+            '<a class="social-btn" href="https://www.facebook.com/jordanalbiar/" target="_blank" rel="noopener"><span class="s-ico" aria-hidden="true">👍</span> Facebook</a>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<section class="recent-work" aria-labelledby="recent-work-title">' +
+        '<h2 id="recent-work-title">Recent work</h2>' +
+        '<p>Tap a thumbnail to jump to that repo&rsquo;s channel.</p>' +
+        '<div class="work-grid">' + thumbs + '</div>' +
+      '</section>' +
+      '<div class="win-foot">' +
+        '<div><p><strong>Albiar</strong> is a father and son designer and developer team, building a network for designers and developers to collaborate. Architectural design, photography, graphic design, and web development, with over 60 years of combined experience.</p>' +
+        '<p class="fineprint">ALBIAR PORTAL &middot; JORDANALBIAR.GITHUB.IO (ROOT) &middot; REPOS AS CHANNELS &middot; 95% POPUP VIEWER &middot; <span id="year"></span></p></div>' +
+        '<div class="foot-links"><a href="https://github.com/jordanalbiar" target="_blank" rel="noopener">GitHub: jordanalbiar</a></div>' +
+      '</div>';
+    yearEl = document.getElementById("year");
+    if(yearEl) yearEl.textContent = new Date().getFullYear();
+    Array.prototype.slice.call(mainEl.querySelectorAll("[data-work-chan]")).forEach(function(b){
+      b.addEventListener("click", function(){ selectChannel(b.getAttribute("data-work-chan")); });
+    });
+    wireOpenButtons();
+  }
+
   /* ---------- Render the selected channel in the main panel ---------- */
   function renderMain(){
     var c = null;
     CHANNELS.forEach(function(ch){ if(ch.key === current) c = ch; });
     if(!c) return;
+    if(c.key === "intro"){ renderIntro(); return; }
     var badge = c.status === "live"
       ? '<span class="badge badge-live"><span class="dot" aria-hidden="true"></span> Live on GitHub Pages</span>'
       : '<span class="badge badge-soon"><span class="dot" aria-hidden="true"></span> Not built yet</span>';
