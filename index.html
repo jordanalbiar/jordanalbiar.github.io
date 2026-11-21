@@ -258,19 +258,6 @@
   .discord-join:focus-visible{outline:2px solid #fff;outline-offset:3px}
   @media (max-width:560px){ .discord-card{padding:18px} .discord-join{width:100%} }
 
-  /* How it works strip */
-  .how{margin:30px 0 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
-  .how-head{padding:18px 20px 4px}
-  .how-head h2{font-family:var(--stencil);font-size:16px;font-weight:400;letter-spacing:.04em;margin:0;color:#45aae6;text-transform:uppercase}
-  .how-head p{margin:6px 0 0;color:var(--muted);font-size:14px;max-width:62ch}
-  .steps{display:grid;grid-template-columns:repeat(3,1fr)}
-  .step{padding:18px 20px 20px;border-top:1px solid var(--line)}
-  .step + .step{border-left:1px solid var(--line)}
-  .step-num{font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:600;letter-spacing:.12em;color:var(--wire-bright);text-transform:uppercase}
-  .step h3{font-size:15px;margin:8px 0 6px;font-weight:700}
-  .step p{margin:0;font-size:13.5px;color:var(--muted)}
-  .step code{font-family:"IBM Plex Mono",monospace;font-size:12px;background:var(--panel-wire);padding:2px 6px;border-radius:5px;color:var(--ink)}
-
   /* Footer line inside the window */
   .win-foot{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start}
   .win-foot p{margin:0;color:var(--muted);font-size:13.5px;max-width:56ch}
@@ -308,8 +295,6 @@
     .sidebar .chan .cname,.sidebar .chan .cdot{display:none}
     .sidebar .side-foot{display:none}
     .main{padding:18px 16px 20px}
-    .steps{grid-template-columns:1fr}
-    .step + .step{border-left:0}
     .desk-hint{display:none}
     .home-chip span{display:none}
   }
@@ -616,15 +601,6 @@
       urlLine +
       '<div class="main-actions">' + actions + '</div>' +
       '<p class="host-note">' + esc(c.note) + '</p>' +
-      '<section class="how" aria-labelledby="how-title">' +
-        '<div class="how-head"><h2 id="how-title">How the portal works</h2>' +
-        '<p>Every project website is an HTML file in that project\'s GitHub repo, published with GitHub Pages. The portal loads it into a popup at 95% of the screen, so each site is one tap away and you never leave this page.</p></div>' +
-        '<div class="steps">' +
-          '<div class="step"><span class="step-num">Step 01</span><h3>One front door, at the root</h3><p>This portal is the site at <code>jordanalbiar.github.io</code> itself, the root, with no /albiar directory in between. It is the only link you ever need to share.</p></div>' +
-          '<div class="step"><span class="step-num">Step 02</span><h3>Websites live in their repos</h3><p>Each project\'s website is added to its own GitHub repo as HTML and served by GitHub Pages, the way the Nova Bot website was added to the nova-bot repo.</p></div>' +
-          '<div class="step"><span class="step-num">Step 03</span><h3>Open in the popup</h3><p>Pick a live channel and the portal loads that repo\'s website into a popup at 95% of the screen. Close the popup and you are right back at the portal.</p></div>' +
-        '</div>' +
-      '</section>' +
       '<div class="win-foot">' +
         '<div><p class="fineprint">JORDAN ALBIAR &middot; JORDANALBIAR.GITHUB.IO (ROOT) &middot; REPOS AS CHANNELS &middot; 95% POPUP VIEWER &middot; <span id="year"></span></p></div>' +
         '<div class="foot-links"><a href="https://github.com/jordanalbiar" target="_blank" rel="noopener">GitHub: jordanalbiar</a></div>' +
