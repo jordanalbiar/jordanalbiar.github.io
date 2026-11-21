@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="dark" />
-<meta name="description" content="Jordan Albiar — portfolio and GitHub front door at jordanalbiar.github.io: a creative artist and maker of things in California. Intro channel opens by default, with his GitHub profile picture, social links, and recent work. His repos are channels; Nova Bot is live and opens in a popup at 95 percent of the screen." />
+<meta name="description" content="Jordan Albiar, portfolio and GitHub front door at jordanalbiar.github.io: a creative artist and maker of things in California. Intro channel opens by default, with his GitHub profile picture, social links, and recent work. His repos are channels; Nova Bot is live and opens in a popup at 95 percent of the screen." />
 <link rel="icon" href="assets/albiar-logo.png" />
 <title>Jordan Albiar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -304,7 +304,7 @@
 <body>
 <div class="desktop" id="desktop">
 
-  <p class="desk-hint">The intro channel opens first — Jordan&rsquo;s profile and recent work. Pick a repo channel on the left to see that project. Nova Bot opens its website in a popup at 95% of the screen. Close the window and click the chevron logo to bring it back.</p>
+  <p class="desk-hint">The intro channel opens first, showing Jordan&rsquo;s profile and recent work. Pick a repo channel on the left to see that project. Nova Bot opens its website in a popup at 95% of the screen. Close the window and click the chevron logo to bring it back.</p>
 
   <button class="reopen" type="button" id="reopenBtn" aria-label="Reopen the Jordan Albiar window" title="Reopen the Jordan Albiar window"><img src="assets/albiar-logo.png" alt="Jordan Albiar chevron logo" width="110" height="110" /><span class="reopen-label">Jordan Albiar</span></button>
 
@@ -525,12 +525,12 @@
     mainEl.innerHTML =
       '<p class="main-kicker">Channel: #intro</p>' +
       '<div class="intro-hero">' +
-        '<div class="intro-photo"><img src="assets/profile.jpg" alt="Jordan Albiar — GitHub profile picture" width="168" height="168" /></div>' +
+        '<div class="intro-photo"><img src="assets/profile.jpg" alt="Jordan Albiar, GitHub profile picture" width="168" height="168" /></div>' +
         '<div class="intro-copy">' +
           '<div class="main-head"><h1>Jordan Albiar</h1><span class="badge badge-live"><span class="dot" aria-hidden="true"></span> Maker of things</span></div>' +
           '<p class="intro-bio">A creative artist and maker of things.</p>' +
           '<p class="intro-loc">California</p>' +
-          '<p class="main-desc">I&rsquo;m Jordan — a creative artist in California and a maker of things. I design and build: software, bots, and creative projects. This portfolio is my front door — every repo is a channel on the left, and the work below is where to start.</p>' +
+          '<p class="main-desc">I&rsquo;m Jordan, a creative artist in California and a maker of things. I design and build: software, bots, and creative projects. This portfolio is my front door, where every repo is a channel on the left and the work below is where to start.</p>' +
           '<div class="tags" aria-label="Jordan Albiar highlights"><span class="tag">Maker of things</span><span class="tag">Creative artist</span><span class="tag">California</span><span class="tag">Designer &amp; developer</span></div>' +
           '<div class="socials" aria-label="Jordan Albiar social links">' +
             '<a class="social-btn" href="https://github.com/jordanalbiar" target="_blank" rel="noopener"><span class="s-ico" aria-hidden="true">🐙</span> GitHub</a>' +
@@ -567,7 +567,7 @@
       ? '<span class="badge badge-live"><span class="dot" aria-hidden="true"></span> Live on GitHub Pages</span>'
       : '<span class="badge badge-soon"><span class="dot" aria-hidden="true"></span> Not built yet</span>';
     var media = c.banner
-      ? '<div class="main-media"><img src="' + esc(c.banner) + '" alt="Nova Bot GitHub cover image — wireframe Nova figure, NOVA wordmark, and platform icons" /></div>'
+      ? '<div class="main-media"><img src="' + esc(c.banner) + '" alt="Nova Bot GitHub cover image, a wireframe Nova figure, NOVA wordmark, and platform icons" /></div>'
       : '<div class="main-media soon"><div><div class="big-emoji" aria-hidden="true">' + c.emoji + '</div><p>Website not built yet</p></div></div>';
     var tags = c.tags.map(function(t){ return '<span class="tag">' + esc(t) + '</span>'; }).join("");
     var urlLine = c.siteUrl
@@ -595,7 +595,7 @@
         '<div class="how-head"><h2 id="how-title">How the portal works</h2>' +
         '<p>Every project website is an HTML file in that project\'s GitHub repo, published with GitHub Pages. The portal loads it into a popup at 95% of the screen, so each site is one tap away and you never leave this page.</p></div>' +
         '<div class="steps">' +
-          '<div class="step"><span class="step-num">Step 01</span><h3>One front door, at the root</h3><p>This portal is the site at <code>jordanalbiar.github.io</code> itself &mdash; the root, with no /albiar directory in between. It is the only link you ever need to share.</p></div>' +
+          '<div class="step"><span class="step-num">Step 01</span><h3>One front door, at the root</h3><p>This portal is the site at <code>jordanalbiar.github.io</code> itself, the root, with no /albiar directory in between. It is the only link you ever need to share.</p></div>' +
           '<div class="step"><span class="step-num">Step 02</span><h3>Websites live in their repos</h3><p>Each project\'s website is added to its own GitHub repo as HTML and served by GitHub Pages, the way the Nova Bot website was added to the nova-bot repo.</p></div>' +
           '<div class="step"><span class="step-num">Step 03</span><h3>Open in the popup</h3><p>Pick a live channel and the portal loads that repo\'s website into a popup at 95% of the screen. Close the popup and you are right back at the portal.</p></div>' +
         '</div>' +
