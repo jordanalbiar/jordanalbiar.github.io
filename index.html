@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="dark" />
-<meta name="description" content="Jordan Albiar, portfolio and GitHub front door at jordanalbiar.github.io: a creative artist and maker of things in California. Intro channel opens by default, with his GitHub profile picture, social links, and recent work. His repos are channels; Nova Bot is live and opens in a popup at 95 percent of the screen." />
+<meta name="description" content="Jordan Albiar, portfolio and GitHub front door at jordanalbiar.github.io: a creative artist and maker of things in California. Intro channel opens by default, with his GitHub profile picture, social links, and recent work. His repos are channels; Nova Bot and VDO Portal are live and open in a popup at 95 percent of the screen, and VDO Portal also has a direct download for its single HTML file." />
 <link rel="icon" href="assets/albiar-logo.png" />
 <title>Jordan Albiar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -49,7 +49,6 @@
     linear-gradient(var(--grid-line) 1px,transparent 1px),
     linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);
     background-size:auto,130px 130px,130px 130px,26px 26px,26px 26px}
-  .desk-hint{position:absolute;left:18px;bottom:18px;font-size:12px;color:var(--dim);max-width:46ch;line-height:1.5;z-index:1}
   .reopen{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:none;background:transparent;border:0;padding:0;cursor:pointer;z-index:5;line-height:0}
   .reopen.show{display:block}
   .reopen img{width:110px;height:110px;display:block;border-radius:18px;border:2px solid var(--wire);box-shadow:0 20px 50px rgba(0,0,0,.65),0 0 34px rgba(61,179,232,.28);object-fit:cover}
@@ -101,11 +100,6 @@
   }
   .home-chip:hover{border-color:var(--wire);color:#fff}
   .home-chip .dot{width:7px;height:7px;border-radius:50%;background:var(--live);flex:none}
-  .searchrow{flex:1 1 auto;min-width:0;display:none}
-  .searchrow.on{display:block}
-  .searchrow.on ~ .title-brand,.searchrow.on ~ .home-chip{display:none}
-  .searchrow input{width:100%;height:32px;background:var(--panel-wire);border:1.5px solid var(--wire-dim);border-radius:3px;color:#fff;font:inherit;font-size:13.5px;padding:6px 11px;outline:none}
-  .searchrow input:focus{border-color:var(--ice)}
   .win-controls{margin-left:auto;display:flex;gap:5px}
   .wc{width:26px;height:22px;border:1.5px solid transparent;border-radius:6px;background:transparent;color:var(--muted);display:grid;place-items:center;cursor:pointer}
   .wc:focus-visible{outline:2px solid #fff;outline-offset:2px}
@@ -116,9 +110,6 @@
   #wcClose{background:#c62f3b;border-color:#ff7a86;color:#fff}
   #wcClose:hover{background:#a82330}
   .wc svg{width:11px;height:11px}
-  .wc.search-btn{background:rgba(18,58,92,.42);border-color:var(--wire-dim);color:var(--wire-bright)}
-  .wc.search-btn:hover{border-color:var(--wire);color:#fff}
-  .wc.search-btn.on{background:rgba(15,109,148,.65);border-color:var(--wire);color:#fff}
 
   /* ---------- Window body: channels sidebar + main panel ---------- */
   .win-body{flex:1;display:flex;min-height:0;border-radius:0 0 14px 14px;overflow:hidden}
@@ -163,13 +154,9 @@
   .chan .cdot.intro{background:var(--wire);box-shadow:0 0 8px rgba(61,179,232,.8)}
   .sidebar.mini .chan{justify-content:center;padding:8px 0;gap:0;min-height:40px}
   .sidebar.mini .chan .cname,.sidebar.mini .chan .cdot{display:none}
-  .chan.is-hidden{display:none}
-  .cat.is-hidden{display:none}
   .side-foot{margin:16px 8px 0;padding:12px;border:1px dashed var(--wire-dim);border-radius:3px;font-size:12px;color:var(--dim);line-height:1.5}
   .side-foot strong{color:var(--muted)}
   .sidebar.mini .side-foot{display:none}
-  .side-empty{display:none;margin:12px 8px;font-size:13px;color:var(--muted)}
-  .side-empty.show{display:block}
 
   /* ---------- Main panel: the selected channel ---------- */
   .main{flex:1;min-width:0;overflow-y:auto;padding:22px 26px 26px;
@@ -295,15 +282,12 @@
     .sidebar .chan .cname,.sidebar .chan .cdot{display:none}
     .sidebar .side-foot{display:none}
     .main{padding:18px 16px 20px}
-    .desk-hint{display:none}
     .home-chip span{display:none}
   }
 </style>
 </head>
 <body>
 <div class="desktop" id="desktop">
-
-  <p class="desk-hint">The intro channel opens first, showing Jordan&rsquo;s profile and recent work. Pick a repo channel on the left to see that project. Nova Bot opens its website in a popup at 95% of the screen. Close the window and click the chevron logo to bring it back.</p>
 
   <button class="reopen" type="button" id="reopenBtn" aria-label="Reopen the Jordan Albiar window" title="Reopen the Jordan Albiar window"><img src="assets/albiar-logo.png" alt="Jordan Albiar chevron logo" width="110" height="110" /><span class="reopen-label">Jordan Albiar</span></button>
 
@@ -313,11 +297,8 @@
     <!-- Blueprint corner brackets on the window frame -->
     <div class="wf-corners" aria-hidden="true"><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i></div>
 
-    <!-- Title bar: brand, home, search, window controls -->
+    <!-- Title bar: brand, home, window controls -->
     <header class="titlebar" id="titlebar">
-      <div class="searchrow" id="searchrow">
-        <input type="search" id="searchInput" placeholder="Filter channels..." aria-label="Filter channels" />
-      </div>
       <div class="title-brand">
         <img src="assets/albiar-logo.png" alt="Jordan Albiar chevron logo" width="34" height="34" />
         <span class="tb-text">
@@ -329,9 +310,6 @@
         <span class="dot" aria-hidden="true"></span><span>jordanalbiar.github.io &middot; portfolio home</span>
       </span>
       <div class="win-controls">
-        <button class="wc search-btn" type="button" id="wcSearch" aria-pressed="false" aria-label="Search channels" title="Search channels">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
-        </button>
         <button class="wc" type="button" id="wcMin" aria-label="Minimize window">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14"/></svg>
         </button>
@@ -355,8 +333,7 @@
           </button>
         </div>
         <div id="channel-list"></div>
-        <p class="side-empty" id="side-empty">No channel matches that filter.</p>
-        <p class="side-foot"><strong>Start with #intro.</strong> That&rsquo;s Jordan&rsquo;s profile and recent work. Below it, every channel is one of Jordan&rsquo;s GitHub repos. A new repo gets a new channel here, in the same list. A channel turns green the day its website goes live.</p>
+        <p class="side-foot"><strong>Last updated:</strong> November 21, 2026.</p>
       </nav>
 
       <!-- Main panel: the selected channel -->
@@ -461,17 +438,21 @@
       emoji: "\uD83D\uDCF9",
       name: "vdo-portal",
       title: "VDO Portal",
-      cat: "Not built yet",
-      status: "soon",
-      version: "Website not built yet",
-      siteUrl: "",
+      cat: "Live now",
+      status: "live",
+      version: "Single HTML file, no install",
+      siteUrl: "https://jordanalbiar.github.io/vdo-portal/vdo-portal.html",
+      openLabel: "Open VDO Portal demo",
       repoUrl: "https://github.com/jordanalbiar/vdo-portal",
       apkUrl: "",
+      downloadUrl: "https://jordanalbiar.github.io/vdo-portal/vdo-portal.html",
+      downloadName: "vdo-portal.html",
+      downloadLabel: "Download HTML file",
       banner: "assets/vdo-portal-banner.jpg",
       bannerAlt: "VDO Portal banner logo from the vdo-portal repo, a glowing hexagon network mark with the VDO PORTAL wordmark and green and violet circuit lines",
-      desc: "Video portal project by Jordan Albiar. Its website is not built yet, so this channel links to the repo for now.",
-      tags: ["Video", "Project", "In progress"],
-      note: "No website yet, so this channel links to the repo. When the site is built it will open here in the same 95% popup, wired exactly like Nova Bot."
+      desc: "A single-file, no-install browser workspace for producing, joining, and watching VDO.Ninja sessions, with role-based portals, a floating window canvas, live custom backgrounds, and full layout control. Built by Jordan Albiar, the whole app lives in one HTML file, with no server, no account, and no install.",
+      tags: ["Single-file HTML", "VDO.Ninja", "No install", "Host, Guest, Viewer"],
+      note: "The demo is served by GitHub Pages from the vdo-portal repo and loaded live into the popup. The download button saves that single HTML file itself, so you can open it in Chrome or Edge with no install."
     }
   ];
   var CATS = ["Start here", "Live now", "Not built yet"];
@@ -481,7 +462,6 @@
   var listEl = document.getElementById("channel-list");
   var mainEl = document.getElementById("main");
   var sidebar = document.getElementById("sidebar");
-  var emptyEl = document.getElementById("side-empty");
 
   function esc(s){
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -532,7 +512,6 @@
           '<p class="intro-bio">A creative artist and maker of things.</p>' +
           '<p class="intro-loc">California</p>' +
           '<p class="main-desc">I&rsquo;m Jordan, a creative artist in California and a maker of things. I design and build: software, bots, and creative projects. This portfolio is my front door, where every repo is a channel on the left and the work below is where to start.</p>' +
-          '<div class="tags" aria-label="Jordan Albiar highlights"><span class="tag">Maker of things</span><span class="tag">Creative artist</span><span class="tag">California</span><span class="tag">Designer &amp; developer</span></div>' +
           '<div class="socials" aria-label="Jordan Albiar social links">' +
             '<a class="social-btn" href="https://github.com/jordanalbiar" target="_blank" rel="noopener"><span class="s-ico" aria-hidden="true">🐙</span> GitHub</a>' +
             '<a class="social-btn" href="https://discord.gg/QgSxnJtwV" target="_blank" rel="noopener"><span class="s-ico" aria-hidden="true">💬</span> Discord</a>' +
@@ -558,7 +537,7 @@
         '</div>' +
       '</section>' +
       '<div class="win-foot">' +
-        '<div><p class="fineprint">JORDAN ALBIAR &middot; JORDANALBIAR.GITHUB.IO (ROOT) &middot; REPOS AS CHANNELS &middot; 95% POPUP VIEWER &middot; <span id="year"></span></p></div>' +
+        '<div><p class="fineprint">JORDAN ALBIAR &middot; JORDANALBIAR.GITHUB.IO (ROOT)</p></div>' +
         '<div class="foot-links"><a href="https://github.com/jordanalbiar" target="_blank" rel="noopener">GitHub: jordanalbiar</a></div>' +
       '</div>';
     yearEl = document.getElementById("year");
@@ -567,6 +546,7 @@
       b.addEventListener("click", function(){ selectChannel(b.getAttribute("data-work-chan")); });
     });
     wireOpenButtons();
+    wireDownloadButtons();
   }
 
   /* ---------- Render the selected channel in the main panel ---------- */
@@ -587,11 +567,15 @@
       : '<p class="url-line"><span>Repo:</span> ' + esc(c.repoUrl.replace(/^https:\/\//, "")) + '</p>';
     var actions = "";
     if(c.siteUrl){
-      actions += '<button class="btn btn-primary" type="button" data-open-site data-site-name="' + esc(c.title) + '" data-site-url="' + esc(c.siteUrl) + '">Open ' + esc(c.title) + ' website</button>';
+      var openText = c.openLabel || ("Open " + c.title + " website");
+      actions += '<button class="btn btn-primary" type="button" data-open-site data-site-name="' + esc(c.title) + '" data-site-url="' + esc(c.siteUrl) + '">' + esc(openText) + '</button>';
     }
     actions += '<a class="btn btn-ghost" href="' + esc(c.repoUrl) + '" target="_blank" rel="noopener">GitHub repo</a>';
     if(c.apkUrl){
       actions += '<a class="btn btn-ghost" href="' + esc(c.apkUrl) + '" target="_blank" rel="noopener">Download APK</a>';
+    }
+    if(c.downloadUrl){
+      actions += '<a class="btn btn-ghost" href="' + esc(c.downloadUrl) + '" download="' + esc(c.downloadName || "") + '" data-download-url="' + esc(c.downloadUrl) + '" data-download-name="' + esc(c.downloadName || "") + '">' + esc(c.downloadLabel || "Download file") + '</a>';
     }
     mainEl.innerHTML =
       media +
@@ -604,12 +588,13 @@
       '<div class="main-actions">' + actions + '</div>' +
       '<p class="host-note">' + esc(c.note) + '</p>' +
       '<div class="win-foot">' +
-        '<div><p class="fineprint">JORDAN ALBIAR &middot; JORDANALBIAR.GITHUB.IO (ROOT) &middot; REPOS AS CHANNELS &middot; 95% POPUP VIEWER &middot; <span id="year"></span></p></div>' +
+        '<div><p class="fineprint">JORDAN ALBIAR &middot; JORDANALBIAR.GITHUB.IO (ROOT)</p></div>' +
         '<div class="foot-links"><a href="https://github.com/jordanalbiar" target="_blank" rel="noopener">GitHub: jordanalbiar</a></div>' +
       '</div>';
     yearEl = document.getElementById("year");
     if(yearEl) yearEl.textContent = new Date().getFullYear();
     wireOpenButtons();
+    wireDownloadButtons();
   }
 
   function selectChannel(key){
@@ -626,45 +611,6 @@
     sidebarToggle.title = mini ? "Expand the channel list" : "Collapse the channel list to an emoji toolbar";
     sidebarToggle.setAttribute("aria-label", mini ? "Expand the channels panel" : "Collapse the channels panel");
   });
-
-  /* ---------- Channel search filter ---------- */
-  var searchBtn = document.getElementById("wcSearch");
-  var searchRow = document.getElementById("searchrow");
-  var searchInput = document.getElementById("searchInput");
-  searchBtn.addEventListener("click", function(){
-    var on = searchRow.classList.toggle("on");
-    searchBtn.classList.toggle("on", on);
-    searchBtn.setAttribute("aria-pressed", on ? "true" : "false");
-    if(on) searchInput.focus();
-    else { searchInput.value = ""; applyFilter(""); }
-  });
-  searchInput.addEventListener("input", function(){ applyFilter(searchInput.value); });
-  function applyFilter(q){
-    q = (q || "").trim().toLowerCase();
-    var visible = 0;
-    Array.prototype.slice.call(listEl.querySelectorAll(".chan")).forEach(function(b){
-      var key = b.getAttribute("data-chan");
-      var hay = key;
-      CHANNELS.forEach(function(c){
-        if(c.key === key) hay = (c.key + " " + c.name + " " + c.title).toLowerCase();
-      });
-      var show = !q || hay.indexOf(q) !== -1;
-      b.classList.toggle("is-hidden", !show);
-      if(show) visible++;
-    });
-    CATS.forEach(function(cat){
-      var catEl = listEl.querySelector('[data-cat="' + cat + '"]');
-      if(!catEl) return;
-      var anyVisible = false;
-      CHANNELS.forEach(function(c){
-        if(c.cat !== cat) return;
-        var b = listEl.querySelector('[data-chan="' + c.key + '"]');
-        if(b && !b.classList.contains("is-hidden")) anyVisible = true;
-      });
-      catEl.classList.toggle("is-hidden", !anyVisible);
-    });
-    emptyEl.classList.toggle("show", visible === 0);
-  }
 
   /* ---------- Window controls: minimize, maximize, close ---------- */
   var win = document.getElementById("win");
@@ -733,6 +679,37 @@
         if(!url) return;
         ev.preventDefault();
         openSite(b.getAttribute("data-site-name") || "Project website", url);
+      });
+    });
+  }
+
+  /* Direct file downloads: fetch the hosted file and save it, so the
+     button downloads from any origin. The plain href and download
+     attribute on the link stay as the fallback if the fetch fails. */
+  function wireDownloadButtons(){
+    Array.prototype.slice.call(document.querySelectorAll("[data-download-url]")).forEach(function(b){
+      if(b.getAttribute("data-dl-wired")) return;
+      b.setAttribute("data-dl-wired", "true");
+      b.addEventListener("click", function(ev){
+        var url = b.getAttribute("data-download-url");
+        var name = b.getAttribute("data-download-name") || "download.html";
+        if(!url || !window.fetch || !window.URL || !URL.createObjectURL) return;
+        ev.preventDefault();
+        fetch(url).then(function(resp){
+          if(!resp.ok) throw new Error("download failed");
+          return resp.blob();
+        }).then(function(blob){
+          var objUrl = URL.createObjectURL(blob);
+          var a = document.createElement("a");
+          a.href = objUrl;
+          a.download = name;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          setTimeout(function(){ URL.revokeObjectURL(objUrl); }, 4000);
+        }).catch(function(){
+          window.open(url, "_blank", "noopener");
+        });
       });
     });
   }
