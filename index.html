@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="dark" />
-<meta name="description" content="Jordan Albiar, portfolio and GitHub front door at jordanalbiar.github.io: a creative artist and maker of things in California. Intro channel opens by default, with his GitHub profile picture, social links, and recent work. His repos are channels; Nova Bot and VDO Portal are live and open in a popup at 90 percent of the screen, and VDO Portal also has a direct download for its single HTML file." />
+<meta name="description" content="Jordan Albiar, portfolio and GitHub front door at jordanalbiar.github.io: a creative artist and maker of things in California. Intro channel opens by default, with his GitHub profile picture, social links, and recent work. His repos are channels; Nova Bot, Creative Canvas, and VDO Portal are live and open in a popup at 90 percent of the screen, and VDO Portal also has a direct download for its single HTML file." />
 <link rel="icon" href="assets/albiar-logo.png" />
 <title>Jordan Albiar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -422,16 +422,18 @@
       emoji: "\uD83C\uDFA8",
       name: "Creative-Canvas",
       title: "Creative Canvas",
-      cat: "Not built yet",
-      status: "soon",
-      version: "Website not built yet",
-      siteUrl: "",
+      cat: "Live now",
+      status: "live",
+      version: "Live website \u00B7 no install",
+      siteUrl: "https://jordanalbiar.github.io/Creative-Canvas/website",
+      openLabel: "Open Creative Canvas website",
       repoUrl: "https://github.com/jordanalbiar/Creative-Canvas",
       apkUrl: "",
-      banner: "",
-      desc: "Creative Canvas, a project by Jordan Albiar. Its website is not built yet, so this channel links to the repo for now.",
-      tags: ["Creative project", "In progress"],
-      note: "No website yet, so this channel links to the repo. When the site is built it will open here in the same 90% popup, wired exactly like Nova Bot."
+      banner: "assets/chalk-dog-poster.jpg",
+      bannerAlt: "Creative Canvas chalk dog poster, a chalk-drawn dachshund on a chalkboard from the Creative Canvas website",
+      desc: "Creative Canvas is a browser-based studio that mimics OBS with no install: scenes, sources, and live switching right in the browser. The website walks through what you can do with it, the source types you can add, and the demo scenes, chalkboard-style.",
+      tags: ["Browser studio", "OBS-style", "No install", "Scenes & sources"],
+      note: "The website is served by GitHub Pages from the Creative-Canvas repo and loaded live into the popup."
     },
     {
       key: "vdo-portal",
@@ -560,7 +562,7 @@
       : '<span class="badge badge-soon"><span class="dot" aria-hidden="true"></span> Not built yet</span>';
     var media = c.banner
       ? '<div class="main-media"><img src="' + esc(c.banner) + '" alt="' + esc(c.bannerAlt || (c.title + " banner")) + '" /></div>'
-      : '<div class="main-media soon"><div><div class="big-emoji" aria-hidden="true">' + c.emoji + '</div><p>Website not built yet</p></div></div>';
+      : '<div class="main-media soon"><div><div class="big-emoji" aria-hidden="true">' + c.emoji + '</div><p>' + (c.status === "live" ? esc(c.title) : "Website not built yet") + '</p></div></div>';
     var tags = c.tags.map(function(t){ return '<span class="tag">' + esc(t) + '</span>'; }).join("");
     var urlLine = c.siteUrl
       ? '<p class="url-line"><span>Loads:</span> ' + esc(c.siteUrl.replace(/^https:\/\//, "")) + '</p>'
