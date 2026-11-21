@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="dark" />
-<meta name="description" content="Jordan Albiar, portfolio and GitHub front door at jordanalbiar.github.io: a creative artist and maker of things in California. Intro channel opens by default, with his GitHub profile picture, social links, and recent work. His repos are channels; Nova Bot and VDO Portal are live and open in a popup at 95 percent of the screen, and VDO Portal also has a direct download for its single HTML file." />
+<meta name="description" content="Jordan Albiar, portfolio and GitHub front door at jordanalbiar.github.io: a creative artist and maker of things in California. Intro channel opens by default, with his GitHub profile picture, social links, and recent work. His repos are channels; Nova Bot and VDO Portal are live and open in a popup at 90 percent of the screen, and VDO Portal also has a direct download for its single HTML file." />
 <link rel="icon" href="assets/albiar-logo.png" />
 <title>Jordan Albiar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -254,9 +254,9 @@
   .foot-links a{display:inline-flex;align-items:center;min-height:40px;padding:8px 12px;border:1px solid var(--wire-dim);border-radius:999px;background:var(--panel);text-decoration:none;font-size:13px;font-weight:600}
   .foot-links a:hover{border-color:var(--wire)}
 
-  /* ===== Site popup viewer (95% of screen) ===== */
+  /* ===== Site popup viewer (90% of screen) ===== */
   .site-modal{position:fixed;inset:0;z-index:60;display:grid;place-items:center;background:rgba(4,16,24,.78)}
-  .site-modal-box{width:95vw;height:95vh;height:95dvh;display:flex;flex-direction:column;background:var(--win-bg);border:1.5px solid var(--wire-dim);border-radius:12px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+  .site-modal-box{width:90vw;height:90vh;height:90dvh;display:flex;flex-direction:column;background:var(--win-bg);border:1.5px solid var(--wire-dim);border-radius:12px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6)}
   .site-modal-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--panel)}
   .site-modal-title{font-family:var(--stencil);font-size:16px;font-weight:400;letter-spacing:.03em;margin:0;line-height:1.2;text-transform:uppercase;color:#45aae6}
   .site-modal-url{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--dim);word-break:break-all}
@@ -415,7 +415,7 @@
       banner: "",
       desc: "TRIGGER'D is a high-performance, zero-latency streaming alert and interactive stream overlay engine engineered for live creators across target platforms.",
       tags: ["Streaming alerts", "Stream overlays", "Live creators"],
-      note: "No website yet, so this channel links to the repo. When the site is built it will open here in the same 95% popup, wired exactly like Nova Bot."
+      note: "No website yet, so this channel links to the repo. When the site is built it will open here in the same 90% popup, wired exactly like Nova Bot."
     },
     {
       key: "creative-canvas",
@@ -431,7 +431,7 @@
       banner: "",
       desc: "Creative Canvas, a project by Jordan Albiar. Its website is not built yet, so this channel links to the repo for now.",
       tags: ["Creative project", "In progress"],
-      note: "No website yet, so this channel links to the repo. When the site is built it will open here in the same 95% popup, wired exactly like Nova Bot."
+      note: "No website yet, so this channel links to the repo. When the site is built it will open here in the same 90% popup, wired exactly like Nova Bot."
     },
     {
       key: "vdo-portal",
@@ -629,7 +629,7 @@
     reopenBtn.classList.remove("show");
   });
 
-  /* ---------- Site popup viewer: loads a repo's website at 95% of the screen ---------- */
+  /* ---------- Site popup viewer: loads a repo's website at 90% of the screen ---------- */
   var modal = document.getElementById("site-modal");
   var frame = document.getElementById("site-frame");
   var status = document.getElementById("site-modal-status");
